@@ -15,7 +15,7 @@ public class Cottage implements Home {
     }
 
     public String toString() {
-        return floorCount + " этажный коттедж площадью " + getArea() + "  метров";
+        return floorCount + " этажный коттедж площадью " + getArea() + " метров";
     }
 
     public int compareTo(Home anotherHome) {

@@ -1,7 +1,5 @@
 package exercise;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,12 +22,11 @@ public class App {
     }
 
     public static List<String> buildApartmentsList(List<Home> homes, int count) {
-    	if (homes.isEmpty()) {
+        if (homes.isEmpty()) {
             return List.of();
         }
         Map<Double, String> map = new HashMap<>();
         TreeSet<Double> ts = new TreeSet<>();
-
         for (Home home : homes) {
             map.put(home.getArea(), home.toString());
             ts.add(home.getArea());
