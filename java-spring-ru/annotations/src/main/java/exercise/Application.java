@@ -11,8 +11,9 @@ public class Application {
         // BEGIN
         for (Method method : Address.class.getDeclaredMethods()) {
             if (method.isAnnotationPresent(Inspect.class)) {
+                var methodType = (method.getReturnType().equals(String.class)) ? "String" : method.getReturnType().getName();
                 System.out.println("Method " + method.getName() + " returns a value of type "
-                + method.getReturnType().toString());
+                + methodType);
             }
         }
         // END
