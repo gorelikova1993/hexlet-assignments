@@ -1,6 +1,8 @@
 package exercise;
 
 import io.javalin.Javalin;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,15 +23,17 @@ public final class App {
         // BEGIN
         app.get("/companies/{id}", ctx -> {
             var id = ctx.pathParam("id");
-
+            Map<String, String> map = new HashMap<>();
             for (int i = 0; i < COMPANIES.size(); i++) {
                 if (COMPANIES.get(i).get("id").equals(id)) {
-                    ctx.json(COMPANIES.get(i));
+                    map = COMPANIES.get(i);
                 }
-                else {
-                    ctx.status(404);
-                    ctx.result("Company not found");
-                }
+            }
+            if (map.isEmpty()) {
+                ctx.status(404);
+                ctx.result("Company not found");
+            } else {
+                ctx.json(map);
             }
         });
         // END
