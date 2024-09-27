@@ -26,6 +26,10 @@ public final class App {
                 if (COMPANIES.get(i).get("id").equals(id)) {
                     ctx.json(COMPANIES.get(i));
                 }
+                else {
+                    ctx.status(404);
+                    ctx.result("Company not found");
+                }
             }
         });
         // END
