@@ -1,5 +1,6 @@
 @import gg.jte.Content
 @param Content content
+@param Content footer = null
 
 <!doctype html>
 <html lang="en">
@@ -7,21 +8,36 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Hexlet Javalin Example</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+          crossorigin="anonymous">
 </head>
 <body>
-<header>
-    <nav>
-        <ul>
-            <li><a href="/users">Users</a></li>
-            <li><a href="/">Main page</a></li>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users">Users</a>
+            </li>
         </ul>
-    </nav>
-</header>
-${content}
+    </div>
+</nav>
 
-<footer>
-    <p><a href="https://github.com/gorelikova1993" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">Yulia Baranova </a></p>
-</footer>
+<div class="mx-auto p-4 py-md-5">
+    ${content}
+</div>
+
+@if (footer != null)
+    <footer class="text-center text-lg-start bg-light text-muted">
+        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+            ${footer}
+        </div>
+    </footer>
+@endif
+
 </body>
 </html>
