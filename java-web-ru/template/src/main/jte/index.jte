@@ -9,10 +9,10 @@
     <title>Hello Hexlet!</title>
   </head>
   <body>
-    <div class="mx-auto p-4 py-md-5">
-      <main>
-            <a href="/users">Пользователи</a>
-      </main>
-    </div>
+  @template.layout.page(
+  content = @`
+    <p>Hello!</p>
+  `
+  )
   </body>
 </html>
