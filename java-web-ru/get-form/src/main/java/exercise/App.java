@@ -28,10 +28,11 @@ public final class App {
 
         // BEGIN
         app.get("/users", ctx -> {
-            var firstName = ctx.queryParam("name");
+            var firstName = ctx.queryParam("term");
             List<User> filteredUsers;
             if (firstName != null) {
-                filteredUsers = USERS.stream().filter(s-> s.getFirstName().equalsIgnoreCase(firstName)).collect(Collectors.toList());
+                filteredUsers = USERS.stream().filter(s-> StringUtils.startsWithIgnoreCase(s.getFirstName(),firstName))
+                        .collect(Collectors.toList());
             } else {
                 filteredUsers = USERS;
             }
