@@ -24,7 +24,6 @@ public class PostsController {
         var page = new PostsPage(posts);
         page.setFlash(ctx.consumeSessionAttribute("flash"));
         ctx.render("posts/index.jte", model("page", page));
-
     }
 
     public static void create(Context ctx) {
