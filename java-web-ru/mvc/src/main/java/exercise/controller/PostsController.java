@@ -63,7 +63,7 @@ public class PostsController {
         var post = PostRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse("Post not found"));
 
-        var page = new PostPage(post);
+        var page = new EditPostPage(id, post.getName(), post.getBody());
         ctx.render("posts/edit.jte", model("page", page));
     }
 
@@ -83,14 +83,14 @@ public class PostsController {
                     .orElseThrow(() -> new NotFoundResponse("Page not found"));
             post.setName(name);
             post.setBody(body);
-            PostRepository.save(post);
+         //   PostRepository.save(post);
 
             ctx.redirect(NamedRoutes.postsPath());
 
         } catch (ValidationException e) {
             var name = ctx.formParam("name");
             var body = ctx.formParam("body");
-            var page = new BuildPostPage(name, body, e.getErrors());
+            var page = new EditPostPage(name, body, id, e.getErrors());
             ctx.render("posts/edit.jte", model("page", page)).status(422);
         }
 
