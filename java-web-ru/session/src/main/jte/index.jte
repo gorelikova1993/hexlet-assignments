@@ -14,6 +14,9 @@
     @if(page.getName() != null)
         Добро пожаловать, ${page.getName().toString()}.
         Чтобы разлогиниться, удалите куку JSESSIONID из браузера
+        <a href="sessions/delete">Выйти</a>
+    @else
+        <a href="/sessions/build">Войти</a>
     @endif
 </main>
 </body>

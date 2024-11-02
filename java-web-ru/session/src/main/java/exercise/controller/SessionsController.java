@@ -3,6 +3,7 @@ package exercise.controller;
 import static io.javalin.rendering.template.TemplateUtil.model;
 import exercise.dto.MainPage;
 import exercise.dto.LoginPage;
+import exercise.model.User;
 import exercise.repository.UsersRepository;
 import static exercise.util.Security.encrypt;
 
@@ -14,23 +15,28 @@ public class SessionsController {
 
     // BEGIN
     public static void build(Context ctx) {
-        ctx.render("build.jte");
+        var page = new LoginPage();
+        ctx.render("build.jte", model("page", page));
+    }
+
+    public static void index(Context ctx) {
+        var page = new MainPage(ctx.sessionAttribute("currentUser"));
+        ctx.render("index.jte", model("page", page));
     }
 
     public static void create(Context ctx) {
         var nickname = ctx.formParam("name");
         var password = ctx.formParam("password");
 
-        if (UsersRepository.existsByName(nickname)) {
-            var user = UsersRepository.findByName(nickname).get();
-            if (user.getPassword().equals(Security.encrypt(password))) {
+        if (UsersRepository.existsByName(nickname) &&
+                UsersRepository.findByName(nickname).get().getPassword().equals(Security.encrypt(password))) {
                 ctx.sessionAttribute("currentUser", nickname);
                 ctx.redirect("/");
-            }
+
         } else {
-            ctx.redirect("/sessions/build");
+            var page = new LoginPage(nickname, "Wrong username or password.");
+            ctx.render("build.jte", model("page", page));
         }
-        // Тут должна быть проверка пароля
     }
 
     public static void destroy(Context ctx) {

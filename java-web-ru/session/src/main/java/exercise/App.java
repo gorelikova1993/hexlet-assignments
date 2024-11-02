@@ -15,14 +15,10 @@ public final class App {
             config.fileRenderer(new JavalinJte());
         });
 
-        // BEGIN
-        // Отображение формы логина
-        app.get("/sessions/build", SessionsController::build);
-        // Процесс логина
-        app.post("/sessions", SessionsController::create);
-        // Процесс выхода из аккаунта
-        app.delete("/sessions", SessionsController::destroy);
-        // END
+        app.get(NamedRoutes.rootPath(), SessionsController::index);
+        app.get(NamedRoutes.buildSessionPath(), SessionsController::build);
+        app.post(NamedRoutes.loginPath(), SessionsController::create);
+        app.post(NamedRoutes.logoutPath(), SessionsController::destroy);
 
         return app;
     }
