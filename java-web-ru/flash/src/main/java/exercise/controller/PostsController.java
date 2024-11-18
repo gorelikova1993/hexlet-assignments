@@ -22,6 +22,7 @@ public class PostsController {
     public static void index(Context ctx) {
         var posts = PostRepository.getEntities();
         var page = new PostsPage(posts);
+        page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
         page.setFlash(ctx.consumeSessionAttribute("flash"));
         ctx.render("posts/index.jte", model("page", page));
     }
@@ -33,6 +34,7 @@ public class PostsController {
         var post = new Post(title, body);
         PostRepository.save(post);
         ctx.sessionAttribute("flash", "Post was successfully created!");
+        ctx.sessionAttribute("flash-type", "success");
         ctx.redirect(NamedRoutes.postsPath());
     }
     // END

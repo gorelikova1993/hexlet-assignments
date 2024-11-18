@@ -16,7 +16,9 @@
 </head>
 <body>
 @if(page != null && page.getFlash() != null)
-    <p>${page.getFlash()}</p>
+    <div class="alert alert-${page.getFlashType()}" role="alert">
+        ${page.getFlash()}
+    </div>
 @endif
 ${content}
 </body>
