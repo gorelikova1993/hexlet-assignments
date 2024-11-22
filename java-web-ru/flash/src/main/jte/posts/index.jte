@@ -13,4 +13,9 @@ content = @`
             </tr>
         @endfor
     </table>
+    @if(page != null && page.getFlash() != null)
+        <div class="alert alert-${page.getFlashType()}" role="alert">
+            ${page.getFlash()}
+        </div>
+    @endif
 `)

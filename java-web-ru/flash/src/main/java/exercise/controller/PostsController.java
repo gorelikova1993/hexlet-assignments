@@ -22,8 +22,8 @@ public class PostsController {
     public static void index(Context ctx) {
         var posts = PostRepository.getEntities();
         var page = new PostsPage(posts);
-        page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
         page.setFlash(ctx.consumeSessionAttribute("flash"));
+        page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
         ctx.render("posts/index.jte", model("page", page));
     }
 
