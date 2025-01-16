@@ -14,32 +14,30 @@ class App {
 
     // BEGIN
     public static Map<String, Integer> getMinMax(int[] numbers) {
-        List<Integer> num = Arrays.stream(numbers).boxed().collect(Collectors.toList());
+        MaxThread maxThread = new MaxThread(numbers);
+        MinThread minThread = new MinThread(numbers);
 
-        Thread maxThread = new MaxThread(num);
         maxThread.start();
-        LOGGER.info("INFO: Thread MaxThread started");
-        try {
-            maxThread.join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        LOGGER.info("INFO: Thread MaxThread finished");
-        Thread minThread = new MinThread(num);
-        minThread.start();
-        LOGGER.info("INFO: Thread MinThread started");
+        LOGGER.log(Level.INFO, "Thread " + maxThread.getName() + " started");
 
+        minThread.start();
+        LOGGER.log(Level.INFO, "Thread " + minThread.getName() + " started");
         try {
             minThread.join();
+            LOGGER.log(Level.INFO, "Thread " + minThread.getName() + " finished");
+            maxThread.join();
+            LOGGER.log(Level.INFO, "Thread " + maxThread.getName() + " finished");
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        LOGGER.info("INFO: Thread MinThread finished");
+        Map result = Map.of(
+                "min",  minThread.getMin(),
+                "max", maxThread.getMaxInt()
+        );
 
-        Map<String, Integer> map = new HashMap<>();
-        map.put("min", ((MinThread) minThread).getMin());
-        map.put("max", ((MaxThread) maxThread).getMaxInt());
-        return map;
+        LOGGER.log(Level.INFO, "Result: " + result.toString());
+
+        return result;
     }
 
     public static void main(String[] args)  {
