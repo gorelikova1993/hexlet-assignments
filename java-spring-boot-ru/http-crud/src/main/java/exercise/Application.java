@@ -27,9 +27,14 @@ public class Application {
     }
 
     // BEGIN
+    /*
+    реализуйте вывод списка постов с помощью пейджинга. Номер страницы и количество постов на странице передаются в качестве параметров
+    строки запроса — например /posts?page=2&limit=10_. По умолчанию должна выводиться первая страница.
+     */
     @GetMapping("/posts") //список постов
-    public List<Post> index(@RequestParam(defaultValue = "10") Integer limit) {
-        return posts.stream().limit(limit).toList();
+    public List<Post> index(@RequestParam(defaultValue = "1") Integer page,
+                            @RequestParam(defaultValue = "10") Integer limit) {
+        return posts.stream().skip((page - 1) * limit).limit(limit).toList();
     }
 
     @PostMapping("/posts") //Созданре поста
