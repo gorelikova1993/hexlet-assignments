@@ -24,20 +24,21 @@ public class PostsController {
     private List<Post> posts = Data.getPosts();
 
     @GetMapping("/users/{id}/posts")
-    public List<Post> index(@PathVariable String id) {
-        return posts.stream().filter(post -> post.getUserId() == Integer.parseInt(id))
+    public List<Post> index(@PathVariable int id) {
+        return posts.stream().filter(post -> post.getUserId() == id)
                 .collect(Collectors.toList());
     }
 
     @PostMapping("/users/{id}/posts")
-    public ResponseEntity<Post> create(@PathVariable String id,
+    public ResponseEntity<Post> create(@PathVariable int id,
                                         @RequestBody Post data) {
         var post = new Post();
         post.setBody(data.getBody());
         post.setTitle(data.getTitle());
         post.setSlug(data.getSlug());
-        post.setUserId(Integer.parseInt(id));
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        post.setUserId(id);
+        posts.add(post);
+        return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
 
 }
