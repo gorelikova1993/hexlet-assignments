@@ -1,0 +1,25 @@
+---
+# BEGIN
+# Настройка сервера
+server:
+  port: 7070 # Изменяем порт приложения на 7070
+
+# Настройка логирования
+spring:
+  jackson:
+    default-property-inclusion: non_null # Опционально: исключает null-значения из JSON
+
+# Настройка цветного вывода логов
+logging:
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}" # Включаем цветной вывод
+  level:
+    root: INFO # Уровень логирования (можно изменить на DEBUG или TRACE для более детального вывода)
+# END
+
+users:
+  admins:
+    - gjoinsey1@blogger.com
+    - scrosi4@cam.ac.uk
+    - brundle@cam.ac.uk
+
