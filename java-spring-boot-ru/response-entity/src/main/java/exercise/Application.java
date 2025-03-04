@@ -40,13 +40,10 @@ public class Application {
 
     @GetMapping("/posts/{id}")
     public ResponseEntity<Post> show(@RequestParam String id) {
-        var result = posts.stream().filter(p -> p.getId().equals(id)).findFirst();
-        if (result.isPresent()) {
-            return ResponseEntity.ok(result.get());
-        }
-        else {
-            return ResponseEntity.notFound().build();
-        }
+        var post = posts.stream()
+                .filter(p -> p.getId().equals(id))
+                .findFirst();
+        return ResponseEntity.of(post);
     }
 
     @PostMapping("/posts")
@@ -56,7 +53,7 @@ public class Application {
     }
 
     @PutMapping("/posts/{id}")
-    public ResponseEntity update(@PathVariable String id, @RequestBody Post data) {
+    public ResponseEntity<Post> update(@PathVariable String id, @RequestBody Post data) {
         var maybePost = posts.stream()
                 .filter(p -> p.getId().equals(id))
                 .findFirst();
@@ -65,9 +62,9 @@ public class Application {
             post.setTitle(data.getTitle());
             post.setBody(data.getBody());
 
-            return ResponseEntity.ok(post);
+            return ResponseEntity.status(HttpStatus.OK).body(post);
         } else {
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
     }
 
