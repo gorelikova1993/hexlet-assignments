@@ -1,5 +1,6 @@
 package exercise;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -28,9 +29,14 @@ public class Application {
     // BEGIN
     @GetMapping("/admins")
     public List<String> getAdmins() {
-        List<String> admins = userProperties.getAdmins();
-        if (admins == null) {
-            return Collections.emptyList();
+        List<String> admins = new ArrayList<>();
+
+        for (var user : users) {
+            for (var admin : userProperties.getAdmins()) {
+                if(admin.equals(user.getEmail())) {
+                    admins.add(user.getName());
+                }
+            }
         }
         Collections.sort(admins);
         return admins;
