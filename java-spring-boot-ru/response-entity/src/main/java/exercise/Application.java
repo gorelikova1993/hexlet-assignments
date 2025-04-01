@@ -64,7 +64,7 @@ public class Application {
 
             return ResponseEntity.status(HttpStatus.OK).body(post);
         } else {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            return ResponseEntity.notFound().build();
         }
     }
 
