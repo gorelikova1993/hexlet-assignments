@@ -39,7 +39,7 @@ public class Application {
     }
 
     @GetMapping("/posts/{id}")
-    public ResponseEntity<Post> show(@RequestParam String id) {
+    public ResponseEntity<Post> show(@PathVariable String id) {
         var post = posts.stream()
                 .filter(p -> p.getId().equals(id))
                 .findFirst();
