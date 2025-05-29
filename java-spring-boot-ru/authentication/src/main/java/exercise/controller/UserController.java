@@ -3,6 +3,7 @@ package exercise.controller;
 import exercise.mapper.UserMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,9 @@ import exercise.exception.ResourceNotFoundException;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -49,6 +53,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public UserDTO create(@Valid @RequestBody UserCreateDTO userData) {
         var user = userMapper.map(userData);
+        user.setPasswordDigest(passwordEncoder.encode(user.getPasswordDigest()));
         userRepository.save(user);
         var userDto = userMapper.map(user);
         return userDto;
