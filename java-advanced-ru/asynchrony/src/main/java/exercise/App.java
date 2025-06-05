@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 class App {
     // BEGIN
     // Пул потоков для асинхронного выполнения задач
-    private static final ExecutorService executor = Executors.newFixedThreadPool(4);
+    private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(4);
     // END
     /**
      * Асинхронно читает содержимое двух файлов и записывает их объединённый текст в третий файл.
@@ -42,7 +42,7 @@ class App {
                 System.out.println("Ошибка при чтении или записи файла: " + e.getMessage());
                 throw new RuntimeException(e);
             }
-        }, executor);
+        }, EXECUTOR_SERVICE);
     }
     /**
      * Асинхронно вычисляет размер всех файлов в указанной директории (без учёта поддиректорий).
@@ -67,7 +67,7 @@ class App {
             } catch (IOException e) {
                 throw new RuntimeException("Не удалось прочитать директорию: " + e.getMessage(), e);
             }
-        }, executor);
+        }, EXECUTOR_SERVICE);
     }
 
     public static void main(String[] args) throws Exception {
