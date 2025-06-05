@@ -2,12 +2,9 @@ package exercise;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
-import java.util.Arrays;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
-import java.io.File;
-import java.nio.file.StandardOpenOption;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Stream;
