@@ -13,12 +13,10 @@ import java.util.concurrent.Executors;
 import java.util.stream.Stream;
 
 class App {
-
     // BEGIN
     // Пул потоков для асинхронного выполнения задач
     private static final ExecutorService executor = Executors.newFixedThreadPool(4);
     // END
-    
     /**
      * Асинхронно читает содержимое двух файлов и записывает их объединённый текст в третий файл.
      *
@@ -34,19 +32,14 @@ class App {
                 String content1 = Files.readString(Paths.get(path1));
                 String content2 = Files.readString(Paths.get(path2));
                 String combinedContent = content1 + content2;
-                
                 Path destPath = Paths.get(destinationPath);
-                
                 // Создаём файл, если он не существует
                 if (Files.notExists(destPath)) {
                     Files.createFile(destPath);
                 }
-                
                 // Записываем объединённое содержимое
                 Files.writeString(destPath, combinedContent);
-                
                 return combinedContent;
-                
             } catch (IOException e) {
                 // В случае ошибки выводим сообщение и пробрасываем исключение дальше
                 System.out.println("Ошибка при чтении или записи файла: " + e.getMessage());
@@ -54,7 +47,6 @@ class App {
             }
         }, executor);
     }
-    
     /**
      * Асинхронно вычисляет размер всех файлов в указанной директории (без учёта поддиректорий).
      *
@@ -75,7 +67,6 @@ class App {
                             }
                         })
                         .sum();
-                
             } catch (IOException e) {
                 throw new RuntimeException("Не удалось прочитать директорию: " + e.getMessage(), e);
             }
@@ -88,7 +79,6 @@ class App {
         String file1 = "src/main/resources/file1.txt";
         String file2 = "src/main/resources/file2.txt";
         String destFile = "src/main/resources/result.txt";
-        
         // Вызываем асинхронный метод и выводим результат после завершения
         unionFiles(file1, file2, destFile).thenAccept(result -> {
             System.out.println("Файлы успешно объединены. Результат записан в файл.");

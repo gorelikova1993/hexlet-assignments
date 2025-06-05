@@ -57,22 +57,17 @@ class AppTest {
     void testGetDirectorySize() throws IOException, ExecutionException, InterruptedException {
         // Создаём временную директорию
         Path tempDir = Files.createTempDirectory("testDir");
-        
         // Создаём два файла и записываем в них строки
         Path file1 = Files.createFile(tempDir.resolve("file1.txt"));
         Path file2 = Files.createFile(tempDir.resolve("file2.txt"));
         Files.writeString(file1, "Hello");
         Files.writeString(file2, "World!");
-        
         // Ожидаемый размер — сумма размеров двух файлов
         long expectedSize = Files.size(file1) + Files.size(file2);
-        
         // Получаем результат от асинхронного метода
         long actualSize = App.getDirectorySize(tempDir.toString()).get();
-        
         // Проверяем совпадение
         assertEquals(expectedSize, actualSize);
-        
         // Удаляем файлы и директорию после теста
         Files.deleteIfExists(file1);
         Files.deleteIfExists(file2);
